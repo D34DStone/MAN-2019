@@ -92,7 +92,6 @@ def text_to_bits(text, encoding='utf-8', errors='surrogatepass'):
     return bits.zfill(8 * ((len(bits) + 7) // 8))
 
 def text_from_bits(bits, encoding='utf-8', errors='surrogatepass'):
-    print("HELLO: " + str(bits))
     n = int(bits, 2)
     return int2bytes(n).decode(encoding, errors)
 
