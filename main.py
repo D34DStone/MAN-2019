@@ -1,6 +1,6 @@
 import argparse
 
-from LSB2 import *
+from LSB import lsb_encode, lsb_decode
 from pydub.pydub import AudioSegment
 from copy import deepcopy
 from array import array
@@ -13,25 +13,25 @@ parser.add_argument('--inp', type=str)
 args = parser.parse_args()
 
 if args.algorithm == "encode":
-    header = Header()
-    header.claster_size = 4
-    header.sample_size = 16
     msg = ""
     with open(args.inp, "r") as f:
         msg = f.read()
     src_song = AudioSegment.from_wav(args.src)
-    msg_clasters = text_to_clasters(msg, header)
     samples = list(src_song.get_array_of_samples())
-    new_samples = encode(samples, msg_clasters, header)
+    new_samples = lsb_encode(samples, msg, claster_size=4, sample_size=2*8)
     out_song = src_song._spawn(array('h', new_samples))
     out_song.export(args.out, format="wav")
 
 
 if args.algorithm == "decode":
     msg = ""
-    header = Header()
     src_song = AudioSegment.from_wav(args.src)
     samples = list(src_song.get_array_of_samples())
-    msg = decode(samples)
+    msg = lsb_decode(samples)
     with open(args.out, "w") as f:
         f.write(msg)
+
+if args.algorithm == "debug":
+    src_song = AudioSegment.from_wav(args.src)
+    samples = list(src_song.get_array_of_samples())
+    print(samples)

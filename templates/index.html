@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <script type='text/javascript' src='/scripts/index.js'></script>
+    </head>
+    <body>
+        <div align=center>
+            <p>Выберите файл:</p>
+            <input type=file id='file'>
+            <p>Выберите алгоритм:</p>
+            <select id='algorithm-select'>
+                <option value="lsb">Наименее значащий бит</option>
+                <option value="echo">Эхо-методы</option>
+                <option value="meta">Мета-данные</option>
+            </select>
+            <p>Введите данные(если вы желаете закодировать их)</p>
+            <textarea id='area' fixed>
+            </textarea>
+            <p>Кнопки ввода:</p>
+            <span>
+                <input id='encode' type='button' value='закодировать'>
+                <input id='decode' type='button' value='разкодировать'>
+            </span>
+        </div>
+    </body>
+</html>
